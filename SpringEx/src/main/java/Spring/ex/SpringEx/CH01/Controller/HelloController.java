@@ -25,9 +25,31 @@ public class HelloController {
 
     // 파라미터 받는방법
     // 서버주소?@RequestParam(변수명)=변수값
+    // 지금 서버 주소는 hello-mvc?name=값
+    // String name은 위에 있는 값을 저장하는 공간
     @GetMapping("hello-mvc")
     public String getParameter(@RequestParam(value = "name") String name, Model model){
         model.addAttribute("name", name);
         return "Hello-temp";
+    }
+
+    // Json 받는방법
+    @GetMapping("hello-json")
+    @ResponseBody
+    public Hello getJson(@RequestParam("name") String name){
+       Hello hello = new Hello();
+       hello.setName(name);
+       return hello;
+    }
+    static class Hello {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

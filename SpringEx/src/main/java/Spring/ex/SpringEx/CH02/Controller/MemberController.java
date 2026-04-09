@@ -5,7 +5,7 @@ import Spring.ex.SpringEx.CH02.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller
+@Controller("memberControllerV2")
 public class MemberController {
     private final MemberService memberService;
 

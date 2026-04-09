@@ -2,6 +2,7 @@ package Spring.ex.SpringEx.Service;
 
 import Spring.ex.SpringEx.CH02.Member;
 import Spring.ex.SpringEx.CH02.Repository.MemoryMemberRepository;
+import Spring.ex.SpringEx.CH02.Service.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

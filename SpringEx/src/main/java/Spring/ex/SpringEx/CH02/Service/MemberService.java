@@ -1,16 +1,19 @@
-package Spring.ex.SpringEx.Service;
+package Spring.ex.SpringEx.CH02.Service;
 
 import Spring.ex.SpringEx.CH02.Member;
 import Spring.ex.SpringEx.CH02.Repository.MemberRepository;
-import Spring.ex.SpringEx.CH02.Repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

@@ -1,12 +1,16 @@
-# Spring 정리
+# Spring 핵심 개념 정리
+
+---
 
 ## Spring이란?
+
 Spring은 Java 기반 애플리케이션 개발을 위한 백엔드 프레임워크이다.  
-[확실] 객체 지향 설계를 기반으로 유지보수성과 확장성을 높이기 위한 다양한 기능 제공
+주로 웹 애플리케이션 개발에 사용되며, 객체 지향 설계를 기반으로 유지보수성과 확장성을 높이기 위한 다양한 기능을 제공한다.
 
 ---
 
 ## 스프링 프레임워크 특징
+
 - IoC (Inversion of Control)
 - DI (Dependency Injection)
 - AOP (Aspect Oriented Programming)
@@ -18,7 +22,11 @@ Spring은 Java 기반 애플리케이션 개발을 위한 백엔드 프레임워
 
 객체 생성, 의존성 관리, 생명주기의 제어권이 개발자가 아닌 스프링 컨테이너로 넘어가는 개념
 
-[확실] 핵심: "객체를 누가 생성하고 관리하는가" → 개발자 → 스프링
+- 개발자가 객체를 직접 생성하지 않음
+- 스프링 컨테이너가 객체를 생성하고 관리
+
+### 스프링 컨테이너
+객체(Bean)를 생성하고 관리하며 의존성을 주입하는 역할
 
 ---
 
@@ -26,9 +34,10 @@ Spring은 Java 기반 애플리케이션 개발을 위한 백엔드 프레임워
 
 ```java
 class Service {
+
     private Repository repository = new Repository();
 
-    public void doSomething() {
+    public void logic() {
         repository.save();
     }
 }
@@ -40,7 +49,7 @@ class Repository {
 }
 ```
 
-[확실] 직접 객체 생성 → 강한 결합
+→ 객체를 직접 생성 → 강한 결합
 
 ---
 
@@ -64,21 +73,22 @@ class Service {
         this.repository = repository;
     }
 
-    public void doSomething() {
+    public void logic() {
         repository.save();
     }
 }
 ```
 
-[확실] 객체 생성 및 관리 → 스프링 컨테이너 담당
+→ 객체 생성 및 관리 → 스프링 컨테이너 담당
 
 ---
 
 ## DI (Dependency Injection, 의존성 주입)
 
-객체가 직접 의존 객체를 생성하지 않고, 외부(스프링 컨테이너)에서 주입받는 방식
+객체가 필요한 의존 객체를 직접 생성하지 않고 외부(스프링 컨테이너)에서 주입받는 방식
 
-[확실] IoC를 구현하는 대표적인 방법
+- IoC를 구현하는 대표적인 방법
+- 결합도 감소, 재사용성 증가, 테스트 용이성 확보
 
 ---
 
@@ -93,8 +103,6 @@ class Service {
 }
 ```
 
-[확실] 테스트 어려움, final 사용 불가 → 실무 비권장
-
 ---
 
 ### 2. 생성자 주입 (권장)
@@ -106,17 +114,15 @@ class Service {
     private final Repository repository;
 
     @Autowired
-   public Service(Repository repository) {
+    public Service(Repository repository) {
         this.repository = repository;
     }
 }
 ```
 
-[확실] 불변성 보장 + 테스트 용이 → 가장 권장
-
 ---
 
-### 3. 수정자 주입
+### 3. 수정자 주입 (Setter)
 
 ```java
 @Component
@@ -131,13 +137,14 @@ class Service {
 }
 ```
 
-[확실] 선택적 의존성에서 사용
-
 ---
 
 ## AOP (Aspect Oriented Programming, 관점 지향 프로그래밍)
 
-핵심 로직과 공통 기능(로깅, 보안 등)을 분리하는 기법
+핵심 로직과 공통 기능을 분리하여 관리하는 프로그래밍 기법
+
+- 핵심 관심사: 비즈니스 로직
+- 공통 관심사: 로깅, 보안, 트랜잭션
 
 ---
 
@@ -157,7 +164,7 @@ class Service {
 }
 ```
 
-[확실] 공통 로직 중복 발생
+→ 공통 로직 중복 발생
 
 ---
 
@@ -183,7 +190,7 @@ class Service {
 }
 ```
 
-[확실] 공통 기능 분리 → 유지보수성 향상
+→ 공통 기능 분리 → 유지보수성 향상
 
 ---
 
@@ -200,7 +207,7 @@ class User extends SomeFrameworkClass {
 }
 ```
 
-[확실] 프레임워크 의존 → 변경 시 영향 큼
+→ 특정 기술에 종속됨
 
 ---
 
@@ -221,21 +228,25 @@ class User {
 }
 ```
 
-[확실] 순수 객체 → 재사용성, 테스트 용이성 증가
+→ 순수 객체 → 재사용성, 테스트 용이성 증가
 
 ---
 
 ## Spring Boot란?
 
-Spring을 더 쉽고 빠르게 사용할 수 있도록 지원하는 프레임워크
+Spring 프레임워크를 더 쉽고 빠르게 사용할 수 있도록 도와주는 확장 프레임워크
 
-[확실] 자동 설정 + 내장 서버 제공
+- 복잡한 설정(XML, 서버 설정 등)을 최소화
+- 자동 설정(Auto Configuration) 제공
 
 ---
 
 ## Spring Boot 특징
 
 ### 1. 내장 WAS
+
+- Tomcat, Jetty 등 내장
+- 별도 서버 설치 없이 실행 가능
 
 ```java
 @SpringBootApplication
@@ -245,8 +256,6 @@ public class Application {
     }
 }
 ```
-
-[확실] Tomcat 내장 → 별도 서버 필요 없음
 
 ---
 
@@ -258,11 +267,13 @@ dependencies {
 }
 ```
 
-[확실] 라이브러리 자동 구성
+- 필요한 라이브러리 묶음 제공
 
 ---
 
-### 3. Java 기반 설정
+### 3. 설정 간소화
+
+- XML 대신 Annotation / Java Config 사용
 
 ```java
 @Configuration
@@ -275,8 +286,6 @@ class AppConfig {
 }
 ```
 
-[확실] XML 없이 설정 가능
-
 ---
 
 ### 4. Jar 실행
@@ -285,4 +294,14 @@ class AppConfig {
 java -jar app.jar
 ```
 
-[확실] 단일 파일 실행 → 배포 간편
+- 하나의 파일로 실행 가능
+
+---
+
+## 핵심 정리
+
+- IoC: 객체 관리 주체가 개발자 → 스프링
+- DI: 객체를 외부에서 주입
+- AOP: 공통 로직 분리
+- POJO: 순수 Java 객체
+- Spring Boot: 자동 설정 + 내장 WAS로 개발 생산성 향상

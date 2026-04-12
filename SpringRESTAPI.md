@@ -15,6 +15,8 @@ HTTP 프로토콜 기반으로 동작한다.
 
 - REST에서는 모든 것을 "자원"으로 본다.
 - 자원은 URI(Uniform Resource Identifier)로 식별한다.
+- 표현은클라이언트가 서버로부터 자원의 상태(데이터)를 요청할 때, 그 자원은 JSON, XML 등 특정 형식으로 전달된다.
+- 상태 전달은 REST는 상태를 유지하지 않는 통신 방법이다. 즉, 각 요청은 독립적이며 서로의 상태 정보를 공유하지 않는다.
 
 예:
 ```
@@ -79,6 +81,11 @@ GET /users/1
 | PATCH | 부분 수정 |
 | DELETE | 삭제 |
 
+![img_7.png](img_7.png)
+
+![img_8.png](img_8.png)
+
+![img_9.png](img_9.png)
 ---
 
 ### 3. HTTP 상태 코드
@@ -87,13 +94,17 @@ GET /users/1
 
 | 코드 | 의미 |
 |------|------|
-| 200 | OK (성공) |
-| 201 | Created (생성 성공) |
-| 400 | Bad Request (잘못된 요청) |
-| 401 | Unauthorized (인증 필요) |
-| 403 | Forbidden (권한 없음) |
-| 404 | Not Found (리소스 없음) |
-| 500 | Internal Server Error (서버 오류) |
+| 200 | OK (요청 성공, 정상 응답) |
+| 201 | Created (리소스 생성 성공) |
+| 204 | No Content (성공했지만 반환할 데이터 없음) |
+| 400 | Bad Request (잘못된 요청, 파라미터 오류 등) |
+| 401 | Unauthorized (인증 필요 또는 인증 실패) |
+| 403 | Forbidden (권한 없음, 접근 거부) |
+| 404 | Not Found (요청한 리소스를 찾을 수 없음) |
+| 405 | Method Not Allowed (허용되지 않은 HTTP Method 사용) |
+| 409 | Conflict (리소스 충돌, 중복 데이터 등) |
+| 500 | Internal Server Error (서버 내부 오류) |
+| 503 | Service Unavailable (서버 과부하 또는 점검 중) |
 
 ---
 

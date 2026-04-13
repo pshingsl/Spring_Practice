@@ -1,23 +1,33 @@
 package Spring.ex.SpringEx;
 
-import Spring.ex.SpringEx.CH03.Repository.MemberRepository3;
-
-import Spring.ex.SpringEx.CH03.Repository.MemoryMemberRepository3;
-import Spring.ex.SpringEx.CH03.Service.MemberService3;
+import Spring.ex.SpringEx.CH05.Repository.JdbcTemplateMemberRepository;
+import Spring.ex.SpringEx.CH05.Repository.MemberRepository;
+import Spring.ex.SpringEx.CH05.Service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    @Bean
-    public MemberService3 memberService3(){
-        return new MemberService3(memberRepository3());
+    private DataSource dataSource;
+
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Bean
-    public MemberRepository3 memberRepository3(){
-        return new MemoryMemberRepository3();
+    public MemberService memberService(){
+        return new MemberService(memberRepository());
+    }
+
+    @Bean
+    public MemberRepository memberRepository(){
+        // return new MemoryMemberRepository();
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 
 }

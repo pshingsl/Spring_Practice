@@ -46,6 +46,71 @@ A 객체가 동작하기 위해 B 객체가 필요하다면
 
 즉, 객체 간 **결합도가 낮아지고 그 결과 유지보수성과 재사용성이 향상**된다
 
+```java
+public interface NotificationService {
+    void send();
+}
+
+public class EmailNotificationService implements NotificationService {
+    @Override
+    public void send() {
+        System.out.println("이메일에서 보냄");
+    }
+}
+
+public class SMSNotificationService implements NotificationService {
+    @Override
+    public void send() {
+        System.out.println("SMS에서 보냄");
+    }
+}
+
+public class OrderService {
+    
+    private NotificationService notificationService;
+    
+    public OrderService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+    
+    public void setNotificationService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+    
+    public void order() {
+        System.out.println("주문쪽에서 실행 중 입니다.");
+        notificationService.send();
+    }
+    
+    public class Main{
+        public static void main(String[] args) {
+            NotificationService emailService= new EmailNotificationService();
+            OrderService email = new OrderService(emailService);
+            email.order();
+            System.out.println("-----");
+            
+            NotificationService SMSSservice = new SMSNotificationService();
+            OrderService SMS = new OrderService(SMSSservice);
+            SMS.order();
+        }
+    }
+}
+
+```
+
+계층 구조
+```
+[ Main ] ----------------┐ (객체 생성 및 주입)
+|                     |
+v                     v
+[ OrderService ] ----> [ NotificationService (Interface) ]
+^
+| (구현/implements)
+---------------------------------
+|                               |
+[ EmailNotificationService ]    [ SNSNotificationService ]
+```
+
 ---
 
 ## Spring Boot에서 DI 구현 핵심

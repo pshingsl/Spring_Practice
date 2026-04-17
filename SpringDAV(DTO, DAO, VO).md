@@ -76,18 +76,30 @@ public class Money {
 ## 참고
 
 ### 데이터 무결성
-데이터가 생성, 저장, 처리되는 전 과정에서 정확성, 일관성, 유효성을 유지하는 상태
+데이터가 생성, 저장, 처리되는 전 과정에서 정확성, 일관성, 유효성을 유지하여 오류나 손상 없이 믿고
+사용할 수 있는 상태를 의미한다. 
+
+데이터의 신뢰성을 보장하는 핵심요소로, 잘못된 정보 입력을 방지하여 제약 조건(개체/참조/도메인 등)을 통해 관리된다.
 
 ---
 
-# Lombok
+# Lombok 
 
-## Lombok
-getter, setter, toString, 생성자 등을 어노테이션으로 자동 생성해주는 라이브러리
+자바에서 반복적으로 작성해야 하는  
+getter, setter, 생성자, toString 등의 코드를
+
+어노테이션을 통해 자동 생성해주는 라이브러리이다.
+
+→ 보일러플레이트 코드를 줄여 생산성을 높인다.
 
 ---
 
 ## @Getter
+클래스의 필드에 대한 getter 메서드를 자동 생성
+
+DTO나 Entity 클래스 상단에 선언하여 편리하게 값을 조회할 수 있으며, 데이터 은닉과 접근 제어를 위해 필수적으로 사용한다.
+
+→ 외부에서 값을 조회할 수 있도록 제공
 
 ### 적용 전
 ```java
@@ -112,6 +124,9 @@ public class Member {
 ---
 
 ## @Setter
+필드 값을 수정할 수 있는 setter 메서드 생성
+
+→ 객체 생성 이후 값 변경 가능
 
 ### 적용 전
 ```java
@@ -136,7 +151,20 @@ public class Member {
 ---
 
 ## @Data
-@Getter + @Setter + @ToString + @EqualsAndHashCode + @RequiredArgsConstructor 포함
+
+JPA, MongoDB 등 다양한 데이터 저장소에 대한 데이터 접근 계층을 추상화하여, 일관되고 
+간편한 API를 제공하는 스프링 프레임워크의 하위 프로젝트이다. 
+
+CRUD작업을 단순화하고, 보일러 플레이트 코드를 줄여 데이터 관리 효율성을 높인다.
+
+
+다음 기능을 한 번에 제공하는 종합 어노테이션
+
+- @Getter
+- @Setter
+- @ToString
+- @EqualsAndHashCode
+- @RequiredArgsConstructor
 
 → DTO에서 주로 사용
 
@@ -162,6 +190,9 @@ public class Member {
 ---
 
 ## @ToString
+객체의 필드 값을 문자열 형태로 출력하는 toString() 메서드를 자동 생성
+
+→ 디버깅 및 로깅 시 객체의 내용 확일할때 필수적이다. 출력에 사용
 
 ### 적용 전
 ```java
@@ -187,6 +218,13 @@ public class Member {
 ---
 
 ## @Builder
+
+필드가 많거나 복잡한 생성자 대신 가독성 높고 유연한 빌더 패턴 코드를 자동으로 생성해준다.
+
+객체 생성 시 필드 순서에 의존하지 않고 명시적으로 값을 설정하여 코드의 유지보수성을 크게 향상시킨다.
+
+빌더 패턴을 자동 생성
+
 
 ### 적용 전
 ```java
@@ -221,6 +259,9 @@ Member member = Member.builder()
 ---
 
 ## @NoArgsConstructor
+파라미터가 없는 기본 생성자 생성
+
+→ JPA, DTO에서 필요
 
 ### 적용 전
 ```java
@@ -240,6 +281,7 @@ public class Member {
 ---
 
 ## @AllArgsConstructor
+모든 필드를 파라미터로 받는 생성자 생성
 
 ### 적용 전
 ```java
@@ -268,6 +310,9 @@ public class Member {
 ---
 
 ## @RequiredArgsConstructor
+초기화되지 않은 final 또는 @NonNull 필드만 매개변수로 받는 생성자를 자동으로 생성해준다.
+
+→ 생성자 주입(DI)에 많이 사용
 
 ### 적용 전
 ```java
@@ -289,7 +334,6 @@ public class Member {
     private final String name;
 }
 ```
-
 ---
 
 ## 참고

@@ -154,7 +154,7 @@ JDBC의 Connection은 기본적으로 auto-commit = true 상태이다.
 ---
 
 ## JDBC 트랜잭션 정리
-[확실]
+
 JDBC 트랜잭션은 여러 SQL 작업을 하나의 논리적 단위(ACID)로 묶어 데이터 무결성을 보장한다.  
 기본적으로 auto-commit 모드로 동작하며, 수동 트랜잭션은 setAutoCommit(false)로 시작한다.  
 작업 성공 시 commit(), 실패 시 rollback()을 호출한다.

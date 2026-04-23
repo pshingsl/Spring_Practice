@@ -20,7 +20,21 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Lombok 의존성 추가
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// 테스트 환경에도 Lombok 사용 시
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// DataBase 의존성설정
 	runtimeOnly 'com.mysql:mysql-connector-j' // mysql 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'// JDBC 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc' // Spring Data JDBC 의존성
+	runtimeOnly 'com.h2database:h2' // h2연동
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3' // MyBatis 의존성
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

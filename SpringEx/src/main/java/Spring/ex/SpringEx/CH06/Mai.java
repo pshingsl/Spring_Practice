@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import Spring.ex.SpringEx.CH06.Member;
 
-public class Main {
+public class Mai {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // 드라이버 연결
         Class.forName("com.mysql.cj.jdbc.Driver");

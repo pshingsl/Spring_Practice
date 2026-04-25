@@ -38,4 +38,9 @@ public class User {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
+    public void update(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 }

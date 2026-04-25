@@ -51,8 +51,7 @@ public class PostService {
 
     // 게시글 조회
     public PostDTO findById(Long userId, Long id) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저 ID의 사용자가 없습니다."));
+
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 게시글 ID의 게시글이 없습니다."));
 
@@ -67,8 +66,6 @@ public class PostService {
     @Transactional
     public void update(Long userId, long id, PostDTO dto) {
 
-        userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저 ID의 사용자가 없습니다."));
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 게시글 ID의 게시글이 없습니다."));
 
@@ -76,8 +73,7 @@ public class PostService {
             throw new RuntimeException("해당 유저는 이 게시글에 대한 접근 권한이 없습니다.");
         }
 
-        post.setTitle(dto.getTitle());
-        post.setContent(dto.getContent());
+        post.update(dto.getTitle(), dto.getContent());
 
         postRepository.save(post);
     }
@@ -85,8 +81,6 @@ public class PostService {
     // 삭제
     @Transactional
     public void delete(Long userId, Long id) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("해당 유저 ID의 사용자가 없습니다."));
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 게시글 ID의 게시글이 없습니다."));
 
@@ -94,7 +88,7 @@ public class PostService {
             throw new RuntimeException("해당 유저는 이 게시글에 대한 접근 권한이 없습니다.");
         }
 
-        postRepository.deleteById(id);
+        postRepository.delete(post);
     }
 
     private Post convertToEntity(User user, PostDTO dto) {
@@ -107,8 +101,8 @@ public class PostService {
     }
 
     private PostDTO convertToDTO(Post post) {
-        Long userId = (post.getUser() != null) ? post.getUser().getId() : null;
-        String username = (post.getUser() != null) ? post.getUser().getUsername() : "알 수 없음";
+        Long userId = post.getId() != null ? post.getUser().getId() : null;
+        String username = post.getUser() != null ? post.getUser().getUsername() : "알 수 없음";
 
         return PostDTO.builder()
                 .id(post.getId())

@@ -18,8 +18,8 @@ public class PostController {
     }
 
     // 생성
-    @PostMapping("/{userId}")
-    public PostDTO create(@PathVariable Long userId, @RequestBody PostDTO dto) {
+    @PostMapping
+    public PostDTO create(@RequestParam Long userId, @RequestBody PostDTO dto) {
         return postService.create(userId, dto);
     }
 
@@ -30,21 +30,21 @@ public class PostController {
     }
 
     // 상세 조회
-    @GetMapping("/{userId}/{id}")
-    public PostDTO getById(@PathVariable Long userId, @PathVariable Long id) {
+    @GetMapping("/{id}")
+    public PostDTO getById(@RequestParam Long userId, @PathVariable Long id) {
         return postService.findById(userId, id);
     }
 
     // 업데이트
-    @PutMapping("/{userId}/{id}")
-    public String update(@PathVariable Long userId, @PathVariable Long id, @RequestBody PostDTO dto) {
+    @PutMapping("/{id}")
+    public String update(@RequestParam Long userId, @PathVariable Long id, @RequestBody PostDTO dto) {
         postService.update(userId, id, dto);
         return "수정 되었습니다.";
     }
 
     // 삭제
-    @DeleteMapping("/{userId}/{id}")
-    public String delete(@PathVariable Long userId, @PathVariable Long id){
+    @DeleteMapping("/{id}")
+    public String delete(@RequestParam Long userId, @PathVariable Long id) {
         postService.delete(userId, id);
         return "삭제 되었습니다.";
     }

@@ -208,6 +208,9 @@ public Claims validateToken(String token) {
 *  Payload는 암호화가 아닌 인코딩
 *  Signature로 위변조 검증
 
+출처
+https://velog.io/@hahan/JWT%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80
+
 ---
 
 ## 9. 면접 핵심 질문

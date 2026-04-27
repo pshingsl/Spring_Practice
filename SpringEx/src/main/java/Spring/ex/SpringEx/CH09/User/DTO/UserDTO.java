@@ -14,6 +14,8 @@ import java.util.List;
 @Builder
 public class UserDTO {
     private Long id;
+    private String token;
     private String username;
     private String email;
+    private String password;
 }

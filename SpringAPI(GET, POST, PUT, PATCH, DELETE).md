@@ -9,6 +9,12 @@ URL(경로)에 데이터를 포함하여 요청하며, 동일한 요청을 여�
 
 스프링부트에서는 컨트롤러에서 `@GetMapping` 사용
 
+`@GetMapping` 어노테이션 하나만 사용하면 기본동작으로 스프링에서 resource/template에서 정적 파일(리턴값)을 찾는다. 
+
+해당 파일이 없다면 404 Not Found에러가 발생하여 스프링 기본 에러페이지인 화이트에러 발생
+
+해당 데이터를 출력하기 위해 `@ResponseBody`를 사용 해야한다.
+
 ```java
 @GetMapping("/users")
 public String getUsers() {
